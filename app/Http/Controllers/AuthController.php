@@ -36,7 +36,12 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard')->with('success', 'Pendaftaran berhasil!');
+        // Arahkan ke halaman sesuai role
+        if ($user->role === 'admin') {
+            return redirect()->route('dashboard')->with('success', 'Selamat datang admin!');
+        } else {
+            return redirect()->route('user.home')->with('success', 'Pendaftaran berhasil, selamat datang!');
+        }
     }
 
     public function login(Request $request)
@@ -48,7 +53,15 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+
+            $user = Auth::user();
+
+            // Cek role user setelah login
+            if ($user->role === 'admin') {
+                return redirect()->route('dashboard');
+            } else {
+                return redirect()->route('user.home');
+            }
         }
 
         return back()->with('error', 'Email atau password salah.');

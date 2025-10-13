@@ -20,8 +20,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // Group untuk user biasa
-Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('user.home');
 });
 
 // Auth routes
