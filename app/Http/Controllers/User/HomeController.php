@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $produk = Glampingmodel::all(); // ambil semua data glamping
-       return view('user.home', compact('produk'));
+        $destinations = Glampingmodel::all(); // ambil semua data glamping
+       return view('user.home', compact('destinations'));
     }
 }

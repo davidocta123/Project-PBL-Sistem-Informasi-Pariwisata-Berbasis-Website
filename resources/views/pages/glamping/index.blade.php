@@ -54,7 +54,7 @@
                                         <span class="badge bg-danger text-white">Penuh</span>
                                     @endif
                                 </td>
-                                <td class="text-center">{{ number_format($glamping->rating, 1) }}/5</td>
+                                <td class="text-center">{{ number_format($glamping->rating, 1) }}</td>
                                 <td class="text-center">
                                     @if ($glamping->image)
                                         <img src="{{ asset('storage/' . $glamping->image) }}" width="80" alt="Gambar">

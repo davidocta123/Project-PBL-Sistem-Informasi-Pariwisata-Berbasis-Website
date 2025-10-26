@@ -16,6 +16,28 @@ class ContactUsController extends Controller
         return view('pages.contact.index', compact('contacts'));
     }
 
+     public function store(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'name'    => 'required|string|max:255',
+            'email'   => 'required|email|max:255',
+            'phone'   => 'required|string|max:20',
+            'message' => 'required|string',
+        ]);
+
+        // Simpan data ke database
+        ContactModel::create([
+            'name'    => $request->name,
+            'email'   => $request->email,
+            'phone'   => $request->phone,
+            'message' => $request->message,
+        ]);
+
+        // Redirect atau kembalikan response
+        return redirect()->back()->with('success', 'Your message has been sent successfully!');
+    }
+
     /**
      * Tampilkan detail pesan tertentu
      */
@@ -24,6 +46,8 @@ class ContactUsController extends Controller
         $contact = Contactmodel::findOrFail($id);
         return view('pages.contact.show', compact('contact'));
     }
+
+
 
     /**
      * Hapus pesan dari database

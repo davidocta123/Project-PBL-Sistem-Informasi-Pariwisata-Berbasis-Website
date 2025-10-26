@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('glampingmodels')) {
         Schema::create('glampingmodels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->decimal('price');
+            $table->decimal('price', 12, 2)->unsigned();
             $table->integer('capacity');
             $table->json('facilities');
             $table->string('image');
             $table->float('rating');
             $table->string('location');
-            $table->Boolean('is_availability');
+            $table->boolean('is_availability');
             $table->timestamps();
         });
+    }
     }
 
     /**

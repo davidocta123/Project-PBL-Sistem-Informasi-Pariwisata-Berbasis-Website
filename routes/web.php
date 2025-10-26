@@ -6,6 +6,10 @@ use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\AboutController;
+use App\Http\Controllers\User\GlampiController;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\ContacController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\ContactUsController;
 
@@ -22,6 +26,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
 // Group untuk user biasa
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('user.home');
+});
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/about', [AboutController::class, 'index'])->name('user.about');
+});
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/glampi', [GlampiController::class, 'index'])->name('user.glampi');
+});
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/contac', [ContacController::class, 'index'])->name('user.contac');
+});
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 // Auth routes
